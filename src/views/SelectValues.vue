@@ -1,5 +1,5 @@
 <template>
-	<v-dialog class="main-dialog" v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
+  <v-content>
 		<v-card>
 			<v-card-text>
 				<v-container>
@@ -20,35 +20,31 @@
 								@change="() => changeValue(index)"
 								no-data-text='brak opcji do wyboru'
 								:disabled="index > 0 && !selectedValues[index - 1]">
-							</v-select>
-						</div>
-						<div class="text-sm-right">
-							<v-btn round color="blue darken-1" class="white--text submit-button" @click.native="closeModal" :disabled="selectedValues.length !== steps.length" @click="goToResult">
-								Szukaj
-								<v-icon right dark>search</v-icon>
-							</v-btn>
-						</div>
-					</v-flex>
-					<v-flex sm6 offset-sm2>
-						<img src="@/assets/tasks.svg" alt="tasks" class="main-image">
-					</v-flex>
-				</v-layout>
-			</v-container>
-		</v-card-text>
-	</v-card>
-</v-dialog>
+								</v-select>
+							</div>
+							<div class="text-sm-right">
+								<v-btn round color="blue darken-1" class="white--text submit-button" :disabled="selectedValues.length !== steps.length" @click="goToResult">
+									Szukaj
+									<v-icon right dark>search</v-icon>
+								</v-btn>
+							</div>
+						</v-flex>
+						<v-flex sm6 offset-sm2>
+							<img src="@/assets/tasks.svg" alt="tasks" class="main-image">
+						</v-flex>
+					</v-layout>
+				</v-container>
+			</v-card-text>
+		</v-card>
+	</v-content>
 </template>
 
 <script>
 
 	export default {
-		name: 'Modal',
+		name: 'SelectValues',
 
 		props: {
-			dialog: {
-				default: false,
-				required: true
-			},
 			data: {
 				default: ''
 			}
@@ -56,7 +52,6 @@
 
 		data () {
 			return {
-
 				steps: [{
 					label: 'Typ wskazania',
 					options: [{
@@ -196,10 +191,6 @@
 					this.selectedValues[i] = null;
 				}
 			},
-			closeModal() {
-				this.$emit('update:dialog', false)
-				this.selectedValues = []
-			},
 			goToResult() {
 				let values = [];
 				let options = [];
@@ -217,9 +208,16 @@
 				this.$router.replace({
 					name: "result",
 					params: {
-						values: values
+						title: this.data,
+						values: values,
+						selectedValues: this.selectedValues
 					}
 				})
+			}
+		},
+		mounted() {
+			if (this.$route.params.select) {
+				this.selectedValues = this.$route.params.select
 			}
 		}
 	}
@@ -230,6 +228,9 @@
 .v-input /deep/ .v-input__slot {
 	background: #fff !important;
 	border: 2px solid #8FD0FF !important;
+}
+.v-input.v-input--is-disabled /deep/ .v-input__slot {
+	border: 2px solid rgba(0,0,0,.38) !important;
 }
 .main-image {
 	max-width: 100%;

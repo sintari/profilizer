@@ -18,25 +18,22 @@
             <v-icon>search</v-icon>
           </div>
           <v-chip label v-for="item in suggestionsChips" :color="item.color" class="suggestionsChips"
-            @click="chooseFromChips(item.name)">
+            @click="goToSelection(item.name)">
             {{item.name}}
           </v-chip>
         </v-flex>
       </v-layout>
     </v-container>
-    <Modal :dialog.sync="openModal" :data="selected"></Modal>
   </v-content>
 </template>
 <script>
 import { VueAutosuggest } from 'vue-autosuggest'
-import Modal from './Modal'
 
   export default {
     name: 'Search',
 
     components: {
-      VueAutosuggest,
-      Modal
+      VueAutosuggest
     },
 
     data () {
@@ -44,7 +41,6 @@ import Modal from './Modal'
         test: '',
         filteredOptions: [],
         selected: null,
-        openModal: false,
         suggestions: {
           data: [
             { name: "Rak płuca" },
@@ -92,8 +88,7 @@ import Modal from './Modal'
           default: {
             limit: 6,
             onSelected: (e) => {
-              this.selected = e.item.name
-              this.openModal = true
+              this.goToSelection(e.item.name)
             }
           },
         }
@@ -117,9 +112,14 @@ import Modal from './Modal'
         // Store data in one property, and filtered in another
         this.filteredOptions = [{ data: filteredData }];
       },
-      chooseFromChips(itemName) {
-        this.selected = itemName
-        this.openModal = true
+      goToSelection(chosenItem) {
+        console.log('asd', chosenItem)
+        this.$router.replace({
+          name: "select-values",
+          params: {
+            selected: chosenItem,
+          }
+        })
       }
     }
   }

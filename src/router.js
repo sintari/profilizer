@@ -24,6 +24,11 @@ export default new Router({
       path: '/result',
       name: 'result',
       component: () => import(/* webpackChunkName: "about" */ './views/Result.vue')
+    },
+    {
+      path: '/select-values',
+      name: 'select-values',
+      component: () => import(/* webpackChunkName: "about" */ './views/SelectValues.vue')
     }
   ]
 })
