@@ -5,7 +5,7 @@
 				<v-container>
 					<v-layout>
 						<v-flex sm12>
-							<p class="display-1 modal-title">Wskazanie: <span class="font-italic">{{data}}</span></p>
+							<p class="display-1 modal-title">Wskazanie: <span class="font-italic">{{ $route.params.selected }}</span></p>
 						</v-flex>
 					</v-layout>
 				</v-container>
@@ -43,12 +43,6 @@
 
 	export default {
 		name: 'SelectValues',
-
-		props: {
-			data: {
-				default: ''
-			}
-		},
 
 		data () {
 			return {
@@ -208,7 +202,7 @@
 				this.$router.replace({
 					name: "result",
 					params: {
-						title: this.data,
+						title: this.$route.params.selected,
 						values: values,
 						selectedValues: this.selectedValues
 					}

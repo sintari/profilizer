@@ -4,28 +4,67 @@
       <v-card-text>
         <v-container grid-list-md align-center>
           <v-layout wrap>
-            <v-flex xs12 sm6>
-              <div class="result-container pa-5">
+            <v-flex xs12 sm6 class="pa-4">
+              <div class="result-container">
                 <img src="@/assets/loops.svg" alt="loops" class="top-loops">
-                  <div class="header-section">
-                    <p class="display-1 modal-title">Wskazanie: <span class="font-italic">{{$route.params.title}}</span></p>
-                  </div>
-                <div v-for="(value) in values">
-                  <div class="result-item-label">
-                    {{value.label}}:
-                  </div>
-                  <div class="result-item-value">
-                    {{value.value}}
-                  </div>
+                <div class="header-section pa-5">
+                  <p class="display-1 modal-title">Wskazanie: <span class="font-italic">{{$route.params.title}}</span></p>
                 </div>
-                <v-btn round outline color="blue darken-1 ma-0" class="white--text submit-button"
-                  @click="goBack">
-                  Edytuj
-              </v-btn>
+                <div class="body-section pa-5 pt-6">
+                  <div v-for="(value) in values">
+                    <div class="result-item-label">
+                      {{value.label}}:
+                    </div>
+                    <div class="result-item-value">
+                      {{value.value}}
+                    </div>
+                  </div>
+                  <v-btn round outline color="blue darken-1" class="white--text submit-button"
+                    @click="goBack">
+                    Edytuj
+                  </v-btn>
+                </div>
+                <img class="result-container-shadow" src="@/assets/box-shadow.png" alt="shadow">
               </div>
             </v-flex>
-            <v-flex xs12 sm6>
-              asd
+            <v-flex xs12 sm6 class="pa-4">
+              <div class="possiblities-container text-sm-center">
+                <div class="section">
+                  <p class="section-title">Możliwości terapeutyczne</p>
+                  <v-btn round outline color="blue darken-1" class="white--text">
+                    Sciągnij raport
+                  </v-btn>
+                </div>
+                <div class="section">
+                  <img src="@/assets/nfz.svg" alt="nfz">
+                  <p>Obecnie finansowane ze środków publicznych</p>
+                  <v-btn outline color="#666" >
+                    CHEM
+                  </v-btn>
+                </div>
+                <div class="section">
+                  <img src="@/assets/ncc.svg" alt="nccn">
+                  <p>Rekomendowane przez wytyczne kliniczne</p>
+                  <v-flex xs12>
+                    <v-btn outline color="#666" >
+                      Alektynib
+                    </v-btn>
+                    <v-btn outline color="#666" >
+                      Kryzotynib
+                    </v-btn>
+                    <v-btn outline color="#666" >
+                      Cerytynib
+                    </v-btn>
+                  </v-flex>
+                </div>
+                <div class="section">
+                  <img src="@/assets/leki.svg" alt="leki">
+                  <p>Lek w badaniach klinicznych</p>
+                  <v-btn outline color="#666" >
+                    Nazwa
+                  </v-btn>
+                </div>
+              </div>
             </v-flex>
           </v-layout>
         </v-container>
@@ -54,12 +93,6 @@
       }
     },
 
-    data () {
-      return {
-
-      }
-    },
-
     created() {
       this.values = this.$route.params.values;
     },
@@ -83,19 +116,53 @@
 @import "./../assets/variables.scss";
 .result-item-label {
   color: #7696AE;
-  font-size: 16px;
+  font-size: 12px;
   margin-bottom: 4px;
   font-weight: bold;
 }
 
+.header-section {
+  background: #fff;
+  padding-top: 58px !important;
+}
+
+.possiblities-container {
+  background: #fff;
+  box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  .section {
+    padding: 23px;
+    border-bottom: 1px solid #DEDEDE;
+    p {
+      color: #666666;
+      font-size: 16px;
+      &.section-title {
+        font-size: 24px;
+      }
+    }
+  }
+}
+
+.body-section {
+  background-color: #E0F2FF;
+}
+
 .result-item-value {
-  font-size: 16px;
+  font-size: 18px;
   margin-bottom: 10px;
 }
 
 .result-container {
-  background-color: #E0F2FF;
   position: relative;
+  box-shadow: 0px 24px 36px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  .result-container-shadow {
+    position: absolute;
+    bottom: -48px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% + 51px);
+  }
 }
 
 .top-loops {
