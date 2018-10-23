@@ -46,13 +46,13 @@
                   <img src="@/assets/ncc.svg" alt="nccn">
                   <p>Rekomendowane przez wytyczne kliniczne</p>
                   <v-flex xs12>
-                    <v-btn outline color="#666" >
+                    <v-btn outline color="#666" href="https://www.ema.europa.eu/documents/product-information/alecensa-epar-product-information_pl.pdf" target="_blank">
                       Alektynib
                     </v-btn>
-                    <v-btn outline color="#666" >
+                    <v-btn outline color="#666" href="https://www.ema.europa.eu/documents/product-information/xalkori-epar-product-information_pl.pdf" target="_blank">
                       Kryzotynib
                     </v-btn>
-                    <v-btn outline color="#666" >
+                    <v-btn outline color="#666" href="https://www.ema.europa.eu/documents/product-information/zykadia-epar-product-information_pl.pdf" target="_blank">
                       Cerytynib
                     </v-btn>
                   </v-flex>
