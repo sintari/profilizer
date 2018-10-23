@@ -38,7 +38,7 @@
                 <div class="section">
                   <img src="@/assets/nfz.svg" alt="nfz">
                   <p>Obecnie finansowane ze środków publicznych</p>
-                  <v-btn outline color="#666" >
+                  <v-btn outline color="#666" href="https://www.gov.pl/web/zdrowie/programy-lekowe">
                     CHEM
                   </v-btn>
                 </div>
