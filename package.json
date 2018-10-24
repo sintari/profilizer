@@ -9,6 +9,8 @@
   },
   "dependencies": {
     "@babel/polyfill": "^7.0.0-rc.1",
+    "jspdf": "^1.4.1",
+    "jspdf-customfonts": "^0.0.4-rc.4",
     "push-dir": "^0.4.1",
     "v-autocomplete": "^1.8.2",
     "vue": "^2.5.17",

@@ -8,7 +8,10 @@
               <div class="result-container">
                 <img src="@/assets/loops.svg" alt="loops" class="top-loops">
                 <div class="header-section pa-5">
-                  <p class="display-1 modal-title">Wskazanie: <span class="font-italic">{{$route.params.title}}</span></p>
+                  <p class="display-1 modal-title">
+                    Wskazanie:
+                    <span class="font-italic">{{$route.params.title}}</span>
+                  </p>
                 </div>
                 <div class="body-section pa-5 pt-6">
                   <div v-for="(value) in values">
@@ -31,7 +34,7 @@
               <div class="possiblities-container text-sm-center">
                 <div class="section">
                   <p class="section-title">Możliwości terapeutyczne</p>
-                  <v-btn round outline color="blue darken-1" class="white--text">
+                  <v-btn round outline color="blue darken-1" class="white--text" @click="generatePDF">
                     Sciągnij raport
                   </v-btn>
                 </div>
@@ -80,6 +83,9 @@
 </template>
 
 <script>
+  import jsPDF from 'jspdf'
+  import jsPDFCustom from 'jspdf-customfonts'
+  import font from '../assets/robotoBase64'
   export default {
     name: 'Result',
 
@@ -89,6 +95,7 @@
         required: false
       },
       data: {
+        values: [],
         default: ''
       }
     },
@@ -101,12 +108,28 @@
       closeModal() {
         this.$emit('update:dialog', false)
       },
-
       goBack() {
         this.$router.replace({
           name: "select-values",
           params: { select: this.$route.params.selectedValues }
         })
+      },
+      generatePDF() {
+        const doc = new jsPDF();
+        let pdfName = 'Raport-profilizer';
+        doc.addFileToVFS("Roboto.ttf", font.fontFace)
+        
+        doc.addFont("Roboto.ttf", "Roboto", 'regular');
+        doc.setFont("Roboto", 'regular');
+        doc.setFontSize(28)
+        doc.text(20, 15, 'Profilizer - Raport')
+        this.values.forEach(function(item, index) {
+          doc.setFontSize(22)
+          doc.text(20, (index + 1) * 30, item.label)
+          doc.setFontSize(16)
+          doc.text(20, ((index + 1) * 30) + 10, item.value)
+        })
+        doc.save(pdfName + '.pdf');
       }
     }
   }
