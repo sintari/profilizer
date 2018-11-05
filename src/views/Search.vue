@@ -11,19 +11,32 @@
             <vue-autosuggest class="mt-4 mb-4"
               :suggestions="filteredOptions"
               :section-configs="sectionConfigs"
-              :get-suggestion-value="getSuggestionValue"
-              :render-suggestion="getSuggestionValue"
-              :inputProps="{id:'autosuggest__input', onInputChange: this.onInputChange, placeholder:'Wpisz 3 znaki...'}"
-            />
+              :get-suggestion-value="getSuggestionClicked"
+              :inputProps="{id:'autosuggest__input', onInputChange: this.onInputChange, placeholder:'Wpisz 3 znaki...'}">
+              <template slot-scope="{suggestion}">
+                <span class="my-suggestion-item"
+                  :class="{disabled: suggestion.item.disabled}">
+                  {{suggestion.item.name}}
+                </span>
+              </template>
+            </vue-autosuggest>
             <v-icon>search</v-icon>
           </div>
-          <v-chip label v-for="item in suggestionsChips" :color="item.color" class="suggestionsChips"
-            @click="goToSelection(item.name)">
+          <v-chip label class="suggestions-chips"
+            v-for="item in suggestionsChips"
+            :disabled="item.disabled"
+            :color="item.color"
+            @click="goToSelection(item)">
             {{item.name}}
           </v-chip>
         </v-flex>
       </v-layout>
     </v-container>
+    <v-snackbar
+      v-model="snackbar"
+      :timeout="5000">
+      This options is not available at the moment
+    </v-snackbar>
   </v-content>
 </template>
 <script>
@@ -38,56 +51,94 @@ import { VueAutosuggest } from 'vue-autosuggest'
 
     data () {
       return {
-        test: '',
+        snackbar: false,
         filteredOptions: [],
         selected: null,
         suggestions: {
           data: [
-            { name: "Rak płuca" },
-            { name: "Rak oskrzelikowo-pęcherzykowy" },
-            { name: "Rak gruczołowo-płaskonabłonkowy" },
-            { name: "Rak płuca (wszystkie)2" },
-            { name: "Rak oskrzelikowo-pęcherzykowy2" },
-            { name: "Rak gruczołowo-płaskonabłonkowy2" },
-            { name: "Rak płuca (wszystkie)3" },
-            { name: "Rak oskrzelikowo-pęcherzykowy3" },
-            { name: "Rak gruczołowo-płaskonabłonkowy3" },
+            { name: "Rak płuca",
+              disabled: false
+            },
+            { name: "Rak oskrzelikowo-pęcherzykowy",
+              disabled: true
+            },
+            { name: "Rak gruczołowo-płaskonabłonkowy",
+              disabled: true
+            },
+            { name: "Rak płuca (wszystkie)2",
+              disabled: true
+            },
+            { name: "Rak oskrzelikowo-pęcherzykowy2",
+              disabled: true
+            },
+            { name: "Rak gruczołowo-płaskonabłonkowy2",
+              disabled: true
+            },
+            { name: "Rak płuca (wszystkie)3",
+              disabled: true
+            },
+            { name: "Rak oskrzelikowo-pęcherzykowy3",
+              disabled: true
+            },
+            { name: "Rak gruczołowo-płaskonabłonkowy3",
+              disabled: true
+            },
+            { name: "Bruceloza",
+              disabled: true
+            },
+            { name: "Angina",
+              disabled: true
+            },
+            { name: "Gorączka plamista",
+              disabled: true
+            }
           ]
         },
         suggestionsChips: [
           { 
             name: 'Rak płuca',
-            color: '#D9EFFF'
+            color: '#D9EFFF',
+            disabled: false
           },
           { 
             name: 'Angina',
-            color: '#D9F8FF'
+            color: '#D9F8FF',
+            disabled: true
           },
           { 
             name: 'Bruceloza',
-            color: '#D9FFF6'
+            color: '#D9FFF6',
+            disabled: true
           },
           { 
             name: 'Choroba Whipple’a',
-            color: '#D9FFE8'
+            color: '#D9FFE8',
+            disabled: true
           },
           { 
             name: 'Gorączka plamista',
-            color: '#D9FFDB'
+            color: '#D9FFDB',
+            disabled: true
           },
           { 
             name: 'Sporotrychoza',
-            color: '#E5FFD9'
+            color: '#E5FFD9',
+            disabled: true
           },
           { 
             name: 'Kryptosporydioza ',
-            color: '#F5FFD9'
+            color: '#F5FFD9',
+            disabled: true
           }
         ],
         sectionConfigs: {
           default: {
             limit: 6,
             onSelected: (e) => {
+              if(e.item.disabled === true) {
+                this.snackbar = true
+                return
+              }
               this.goToSelection(e.item.name)
             }
           },
@@ -95,8 +146,11 @@ import { VueAutosuggest } from 'vue-autosuggest'
       }
     },
     methods: {
+      getSuggestionClicked(suggestion) {
+        this.filteredOptions = []
+      },
       getSuggestionValue(suggestion) {
-        return suggestion.item.name;
+        return suggestion.item.disabled === true ? `${suggestion.item.name} - disabled` : suggestion.item.name
       },
       onInputChange(text) {
         if (text === null || text.length < 3) {
@@ -113,11 +167,11 @@ import { VueAutosuggest } from 'vue-autosuggest'
         this.filteredOptions = [{ data: filteredData }];
       },
       goToSelection(chosenItem) {
-        console.log('asd', chosenItem)
+        if(chosenItem.disabled === true) return
         this.$router.replace({
           name: "select-values",
           params: {
-            selected: chosenItem,
+            selected: chosenItem.name,
           }
         })
       }
@@ -139,11 +193,27 @@ import { VueAutosuggest } from 'vue-autosuggest'
     color: $text-color !important;
   }
 
-  .autocomplete-container /deep/ .suggestionsChips {
+  .autocomplete-container /deep/ .my-suggestion-item {
+    padding: 7.5px 10px;
+    display: block;
+    &.disabled {
+      pointer-events: none;
+      cursor: not-allowed;
+      color: rgba(0, 0, 0, .38);
+    }
+  }
+
+  .suggestions-chips {
     border-radius: 12px;
     padding: 5px;
-    color: $deep-blue;
     font-weight: bold;
+    &:not(.v-chip--disabled) {
+      cursor: pointer;
+      color: $deep-blue;
+      /deep/ .v-chip__content {
+        cursor: pointer;
+      }
+    }
   }
 
   .autocomplete-container /deep/ #autosuggest__input {
@@ -187,7 +257,6 @@ import { VueAutosuggest } from 'vue-autosuggest'
 
   .autocomplete-container /deep/ .autosuggest__results .autosuggest__results_item {
     cursor: pointer;
-    padding: 7.5px 10px;
   }
 
   .autocomplete-container /deep/ #autosuggest ul:nth-child(1) > .autosuggest__results_title {

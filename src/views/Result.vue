@@ -35,7 +35,7 @@
                 <div class="section">
                   <p class="section-title">Możliwości terapeutyczne</p>
                   <v-btn round outline color="blue darken-1" class="white--text" @click="generatePDF">
-                    Sciągnij raport
+                    Ściągnij raport
                   </v-btn>
                 </div>
                 <div class="section">
@@ -62,22 +62,55 @@
                 </div>
                 <div class="section">
                   <img src="@/assets/leki.svg" alt="leki">
-                  <p>Lek w badaniach klinicznych</p>
-                  <v-btn outline color="#666" >
-                    Nazwa
-                  </v-btn>
+                  <p>Lista badań klinicznych</p>
+                  <v-flex xs12 class="treatment-list">
+                    <v-tooltip top>
+                      <v-btn outline color="#666" target="_blank"
+                        href="https://clinicaltrials.gov/ct2/show/NCT03456076"
+                        slot="activator">
+                        A Study Comparing Adjuvant..
+                      </v-btn>
+                      <span>
+                        Study Comparing Adjuvant Alectinib Versus Adjuvant Platinum-Based Chemotherapy in Patients With ALK Positive Non-Small Cell Lung Cancer
+                      </span>
+                    </v-tooltip>
+                    <v-tooltip top>
+                      <v-btn outline color="#666" target="_blank"
+                        href="https://clinicaltrials.gov/ct2/show/NCT03052608"
+                        slot="activator">
+                        A Study Of Lorlatinib..
+                      </v-btn>
+                      <span>
+                        Study Of Lorlatinib Versus Crizotinib In First Line Treatment Of Patients With ALK-Positive NSCLC
+                      </span>
+                    </v-tooltip>
+                    <v-tooltip top>
+                      <v-btn outline color="#666" target="_blank"
+                        href="https://clinicaltrials.gov/ct2/show/NCT02299505"
+                        slot="activator">
+                        Pharmacokinetic and Safety..
+                      </v-btn>
+                      <span>
+                        Pharmacokinetic and Safety Study of Lower Doses of Ceritinib Taken With a Low-fat Meal Versus 750 mg of Ceritinib in the Fasted State in Adult Patients With (ALK-positive) Metastatic Non-small Cell Lung Cancer (NSCLC)
+                      </span>
+                    </v-tooltip>
+                    <v-tooltip top>
+                      <v-btn outline color="#666" target="_blank"
+                        href="hhttps://clinicaltrials.gov/ct2/show/NCT02767804"
+                        slot="activator">
+                        eXalt3: Study Comparing..
+                      </v-btn>
+                      <span>
+                        eXalt3: Study Comparing X-396 (Ensartinib) to Crizotinib in ALK Positive Non-Small Cell Lung Cancer (NSCLC) Patients
+                      </span>
+                    </v-tooltip>
+                  </v-flex>
                 </div>
               </div>
             </v-flex>
           </v-layout>
         </v-container>
       </v-card-text>
-      <v-card-actions>
-        <v-flex>
-          <div class="text-sm-center">
-          </div>
-        </v-flex>
-      </v-card-actions>
     </v-card>
   </v-dialog>
 </template>
@@ -137,6 +170,12 @@
 
 <style lang="scss">
 @import "./../assets/variables.scss";
+.treatment-list .v-btn {
+  // width: 250px;
+  // white-space: nowrap;
+  // overflow: hidden;
+  // text-overflow: ellipsis;
+}
 .result-item-label {
   color: #7696AE;
   font-size: 12px;

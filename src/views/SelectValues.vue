@@ -4,8 +4,15 @@
 			<v-card-text>
 				<v-container>
 					<v-layout>
-						<v-flex sm12>
+						<v-flex sm6>
 							<p class="display-1 modal-title">Wskazanie: <span class="font-italic">{{ $route.params.selected }}</span></p>
+						</v-flex>
+						<v-flex sm6 class="text-sm-right">
+							<v-btn round color="blue darken-1" class="white--text submit-button"
+								@click="$router.push({path: 'search'})">
+								<v-icon dark left>arrow_back</v-icon>
+								Wróć
+							</v-btn>
 						</v-flex>
 					</v-layout>
 				</v-container>
