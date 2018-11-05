@@ -1,7 +1,7 @@
 <template>
   <v-app id="app">
     <v-toolbar app v-if="authenticated">
-      <v-toolbar-title class="main-title title">Profilizer</v-toolbar-title>
+      <img src="@/assets/profilizer-logo.svg" alt="roche">
       <v-spacer></v-spacer>
       <v-toolbar-title>
         <span class="body-1">Czesc anna.kowalska@roche.com</span>
