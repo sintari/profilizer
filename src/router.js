@@ -13,22 +13,22 @@ export default new Router({
     {
       path: '/login',
       name: 'login',
-      component: () => import(/* webpackChunkName: "about" */ './views/Login.vue')
+      component: () => import('./views/Login.vue')
     },
     {
       path: '/search',
       name: 'search',
-      component: () => import(/* webpackChunkName: "about" */ './views/Search.vue')
+      component: () => import('./views/Search.vue')
     },
     {
       path: '/result',
       name: 'result',
-      component: () => import(/* webpackChunkName: "about" */ './views/Result.vue')
+      component: () => import('./views/Result.vue')
     },
     {
       path: '/select-values',
       name: 'select-values',
-      component: () => import(/* webpackChunkName: "about" */ './views/SelectValues.vue')
+      component: () => import('./views/SelectValues.vue')
     }
   ]
 })
