@@ -1,118 +1,116 @@
 <template>
-  <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
-    <v-card>
-      <v-card-text>
-        <v-container grid-list-md align-center>
-          <v-layout wrap>
-            <v-flex xs12 sm6 class="pa-4">
-              <div class="result-container">
-                <img src="@/assets/loops.svg" alt="loops" class="top-loops">
-                <div class="header-section pa-5">
-                  <p class="display-1 modal-title">
-                    Wskazanie:
-                    <span class="font-italic">{{$route.params.title}}</span>
-                  </p>
+  <v-content>
+    <v-container grid-list-md align-center>
+      <v-layout wrap>
+        <v-flex xs12 sm6 class="pa-4">
+          <div class="result-container">
+            <img src="@/assets/loops.svg" alt="loops" class="top-loops">
+            <div class="header-section pa-5">
+              <p class="display-1 modal-title">
+                Wskazanie:
+                <span class="font-italic">{{$route.params.title}}</span>
+              </p>
+            </div>
+            <div class="body-section pa-5 pt-6">
+              <div v-for="(value) in values">
+                <div class="result-item-label">
+                  {{value.label}}:
                 </div>
-                <div class="body-section pa-5 pt-6">
-                  <div v-for="(value) in values">
-                    <div class="result-item-label">
-                      {{value.label}}:
-                    </div>
-                    <div class="result-item-value">
-                      {{value.value}}
-                    </div>
-                  </div>
-                  <v-btn round outline color="blue darken-1" class="white--text submit-button"
-                    @click="goBack">
-                    Edytuj
-                  </v-btn>
-                </div>
-                <img class="result-container-shadow" src="@/assets/box-shadow.png" alt="shadow">
-              </div>
-            </v-flex>
-            <v-flex xs12 sm6 class="pa-4">
-              <div class="possiblities-container text-sm-center">
-                <div class="section">
-                  <p class="section-title">Możliwości terapeutyczne</p>
-                  <v-btn round outline color="blue darken-1" class="white--text" @click="generatePDF">
-                    Ściągnij raport
-                  </v-btn>
-                </div>
-                <div class="section">
-                  <img src="@/assets/nfz.svg" alt="nfz">
-                  <p>Obecnie finansowane ze środków publicznych</p>
-                  <v-btn outline color="#666" href="https://www.gov.pl/web/zdrowie/programy-lekowe">
-                    CHEM
-                  </v-btn>
-                </div>
-                <div class="section">
-                  <img src="@/assets/ncc.svg" alt="nccn">
-                  <p>Rekomendowane przez wytyczne kliniczne</p>
-                  <v-flex xs12>
-                    <v-btn outline color="#666" href="https://www.ema.europa.eu/documents/product-information/alecensa-epar-product-information_pl.pdf" target="_blank">
-                      Alektynib
-                    </v-btn>
-                    <v-btn outline color="#666" href="https://www.ema.europa.eu/documents/product-information/xalkori-epar-product-information_pl.pdf" target="_blank">
-                      Kryzotynib
-                    </v-btn>
-                    <v-btn outline color="#666" href="https://www.ema.europa.eu/documents/product-information/zykadia-epar-product-information_pl.pdf" target="_blank">
-                      Cerytynib
-                    </v-btn>
-                  </v-flex>
-                </div>
-                <div class="section">
-                  <img src="@/assets/leki.svg" alt="leki">
-                  <p>Lista badań klinicznych</p>
-                  <v-flex xs12 class="treatment-list">
-                    <v-tooltip top>
-                      <v-btn outline color="#666" target="_blank"
-                        href="https://clinicaltrials.gov/ct2/show/NCT03456076"
-                        slot="activator">
-                        A Study Comparing Adjuvant..
-                      </v-btn>
-                      <span>
-                        Study Comparing Adjuvant Alectinib Versus Adjuvant Platinum-Based Chemotherapy in Patients With ALK Positive Non-Small Cell Lung Cancer
-                      </span>
-                    </v-tooltip>
-                    <v-tooltip top>
-                      <v-btn outline color="#666" target="_blank"
-                        href="https://clinicaltrials.gov/ct2/show/NCT03052608"
-                        slot="activator">
-                        A Study Of Lorlatinib..
-                      </v-btn>
-                      <span>
-                        Study Of Lorlatinib Versus Crizotinib In First Line Treatment Of Patients With ALK-Positive NSCLC
-                      </span>
-                    </v-tooltip>
-                    <v-tooltip top>
-                      <v-btn outline color="#666" target="_blank"
-                        href="https://clinicaltrials.gov/ct2/show/NCT02299505"
-                        slot="activator">
-                        Pharmacokinetic and Safety..
-                      </v-btn>
-                      <span>
-                        Pharmacokinetic and Safety Study of Lower Doses of Ceritinib Taken With a Low-fat Meal Versus 750 mg of Ceritinib in the Fasted State in Adult Patients With (ALK-positive) Metastatic Non-small Cell Lung Cancer (NSCLC)
-                      </span>
-                    </v-tooltip>
-                    <v-tooltip top>
-                      <v-btn outline color="#666" target="_blank"
-                        href="hhttps://clinicaltrials.gov/ct2/show/NCT02767804"
-                        slot="activator">
-                        eXalt3: Study Comparing..
-                      </v-btn>
-                      <span>
-                        eXalt3: Study Comparing X-396 (Ensartinib) to Crizotinib in ALK Positive Non-Small Cell Lung Cancer (NSCLC) Patients
-                      </span>
-                    </v-tooltip>
-                  </v-flex>
+                <div class="result-item-value">
+                  {{value.value}}
                 </div>
               </div>
-            </v-flex>
-          </v-layout>
-        </v-container>
-      </v-card-text>
-    </v-card>
-  </v-dialog>
+              <v-btn round outline color="blue darken-1" class="white--text submit-button"
+                @click="goBack">
+                Edytuj
+              </v-btn>
+            </div>
+            <img class="result-container-shadow" src="@/assets/box-shadow.png" alt="shadow">
+          </div>
+        </v-flex>
+        <v-flex xs12 sm6 class="pa-4">
+          <div class="possiblities-container text-sm-center">
+            <div class="section">
+              <p class="section-title">Możliwości terapeutyczne</p>
+              <v-btn round outline color="blue darken-1" class="white--text"
+                href="static/profilizer-raport.pdf"
+                download="profilizer-raport">
+                Ściągnij raport
+              </v-btn>
+            </div>
+            <div class="section">
+              <img src="@/assets/nfz.svg" alt="nfz">
+              <p>Obecnie finansowane ze środków publicznych</p>
+              <v-btn outline color="#666" href="https://www.gov.pl/web/zdrowie/programy-lekowe">
+                CHEM
+              </v-btn>
+            </div>
+            <div class="section">
+              <img src="@/assets/ncc.svg" alt="nccn">
+              <p>Rekomendowane przez wytyczne kliniczne</p>
+              <v-flex xs12>
+                <v-btn outline color="#666" href="https://www.ema.europa.eu/documents/product-information/alecensa-epar-product-information_pl.pdf" target="_blank">
+                  Alektynib
+                </v-btn>
+                <v-btn outline color="#666" href="https://www.ema.europa.eu/documents/product-information/xalkori-epar-product-information_pl.pdf" target="_blank">
+                  Kryzotynib
+                </v-btn>
+                <v-btn outline color="#666" href="https://www.ema.europa.eu/documents/product-information/zykadia-epar-product-information_pl.pdf" target="_blank">
+                  Cerytynib
+                </v-btn>
+              </v-flex>
+            </div>
+            <div class="section">
+              <img src="@/assets/leki.svg" alt="leki">
+              <p>Lista badań klinicznych</p>
+              <v-flex xs12 class="treatment-list">
+                <v-tooltip top>
+                  <v-btn outline color="#666" target="_blank"
+                    href="https://clinicaltrials.gov/ct2/show/NCT03456076"
+                    slot="activator">
+                    A Study Comparing Adjuvant..
+                  </v-btn>
+                  <span>
+                    Study Comparing Adjuvant Alectinib Versus Adjuvant Platinum-Based Chemotherapy in Patients With ALK Positive Non-Small Cell Lung Cancer
+                  </span>
+                </v-tooltip>
+                <v-tooltip top>
+                  <v-btn outline color="#666" target="_blank"
+                    href="https://clinicaltrials.gov/ct2/show/NCT03052608"
+                    slot="activator">
+                    A Study Of Lorlatinib..
+                  </v-btn>
+                  <span>
+                    Study Of Lorlatinib Versus Crizotinib In First Line Treatment Of Patients With ALK-Positive NSCLC
+                  </span>
+                </v-tooltip>
+                <v-tooltip top>
+                  <v-btn outline color="#666" target="_blank"
+                    href="https://clinicaltrials.gov/ct2/show/NCT02299505"
+                    slot="activator">
+                    Pharmacokinetic and Safety..
+                  </v-btn>
+                  <span>
+                    Pharmacokinetic and Safety Study of Lower Doses of Ceritinib Taken With a Low-fat Meal Versus 750 mg of Ceritinib in the Fasted State in Adult Patients With (ALK-positive) Metastatic Non-small Cell Lung Cancer (NSCLC)
+                  </span>
+                </v-tooltip>
+                <v-tooltip top>
+                  <v-btn outline color="#666" target="_blank"
+                    href="https://clinicaltrials.gov/ct2/show/NCT02767804"
+                    slot="activator">
+                    eXalt3: Study Comparing..
+                  </v-btn>
+                  <span>
+                    eXalt3: Study Comparing X-396 (Ensartinib) to Crizotinib in ALK Positive Non-Small Cell Lung Cancer (NSCLC) Patients
+                  </span>
+                </v-tooltip>
+              </v-flex>
+            </div>
+          </div>
+        </v-flex>
+      </v-layout>
+    </v-container>
+  </v-content>
 </template>
 
 <script>
@@ -170,12 +168,6 @@
 
 <style lang="scss">
 @import "./../assets/variables.scss";
-.treatment-list .v-btn {
-  // width: 250px;
-  // white-space: nowrap;
-  // overflow: hidden;
-  // text-overflow: ellipsis;
-}
 .result-item-label {
   color: #7696AE;
   font-size: 12px;

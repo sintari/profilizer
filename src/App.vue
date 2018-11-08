@@ -57,8 +57,4 @@
   .theme--light.v-toolbar {
     background-color: #fff;
   }
-  .v-dialog--fullscreen {
-    top: 65px;
-    height: calc(100% - 65px)
-  }
 </style>

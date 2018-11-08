@@ -26,7 +26,7 @@
             v-for="item in suggestionsChips"
             :disabled="item.disabled"
             :color="item.color"
-            @click="goToSelection(item)">
+            @click="goToSelection(item.name)">
             {{item.name}}
           </v-chip>
         </v-flex>
@@ -35,7 +35,7 @@
     <v-snackbar
       v-model="snackbar"
       :timeout="5000">
-      This options is not available at the moment
+      Ta opcja jest niedostępna
     </v-snackbar>
   </v-content>
 </template>
@@ -135,6 +135,7 @@ import { VueAutosuggest } from 'vue-autosuggest'
           default: {
             limit: 6,
             onSelected: (e) => {
+              console.log(e.item.name)
               if(e.item.disabled === true) {
                 this.snackbar = true
                 return
@@ -167,11 +168,12 @@ import { VueAutosuggest } from 'vue-autosuggest'
         this.filteredOptions = [{ data: filteredData }];
       },
       goToSelection(chosenItem) {
+        console.log(chosenItem)
         if(chosenItem.disabled === true) return
         this.$router.replace({
           name: "select-values",
           params: {
-            selected: chosenItem.name,
+            selected: chosenItem,
           }
         })
       }
